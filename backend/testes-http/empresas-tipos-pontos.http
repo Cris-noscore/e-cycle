@@ -1,0 +1,34 @@
+### E-CYCLE — EMPRESAS, TIPOS e PONTOS (gestao = admin)
+@url = http://localhost:3000/api
+
+### Login ADMIN
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "diego@email.com", "senha": "admin123" }
+
+### Criar empresa
+POST {{url}}/empresas
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome_empresa": "Recicla Já", "cnpj": "55.444.333/0001-22", "contato": "contato@reciclaja.com.br" }
+
+### Criar tipo
+POST {{url}}/tipos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome": "Monitores", "descricao": "Telas e monitores" }
+
+### Criar ponto (id_empresa precisa existir)
+POST {{url}}/pontos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome_local": "Ponto Biblioteca", "endereco": "Rua do Saber, 500", "cidade": "Carapicuíba", "id_empresa": 1 }
+
+### Listar pontos
+GET {{url}}/pontos
+Authorization: Bearer {{login.response.body.token}}

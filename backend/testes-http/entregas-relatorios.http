@@ -1,0 +1,50 @@
+### E-CYCLE — DESCARTE (solicitar → confirmar) e RELATORIOS
+@url = http://localhost:3000/api
+
+### 1) Login CLIENTE
+# @name loginCliente
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "ana@email.com", "senha": "senha123" }
+
+### 2) Cliente SOLICITA descarte (status 'solicitado', NAO pontua ainda)
+POST {{url}}/entregas
+Authorization: Bearer {{loginCliente.response.body.token}}
+Content-Type: application/json
+
+{ "id_ponto": 1, "id_tipo": 2, "peso_residuo": 10 }
+
+### 3) Cliente ve seus descartes (com status)
+GET {{url}}/perfil/entregas
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 4) Login ADMIN DE PONTO (Marcos - Ponto Centro)
+# @name loginPonto
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "marcos@email.com", "senha": "ponto123" }
+
+### 5) Admin do ponto ve os pendentes (so do seu ponto)
+GET {{url}}/entregas/pendentes
+Authorization: Bearer {{loginPonto.response.body.token}}
+
+### 6) Admin CONFIRMA (troque o :id pelo id do pendente) -> gera pontos
+PUT {{url}}/entregas/6/confirmar
+Authorization: Bearer {{loginPonto.response.body.token}}
+
+### 6b) Ou RECUSA
+PUT {{url}}/entregas/6/recusar
+Authorization: Bearer {{loginPonto.response.body.token}}
+
+### 7) Login ADMIN GLOBAL para relatorios
+# @name loginAdmin
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "diego@email.com", "senha": "admin123" }
+
+### Relatorios (so contam confirmados)
+GET {{url}}/relatorios/ranking
+Authorization: Bearer {{loginAdmin.response.body.token}}

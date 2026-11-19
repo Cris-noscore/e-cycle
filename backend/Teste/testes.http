@@ -1,0 +1,91 @@
+ ###############################################
+# E-CYCLE — Testes da API (REST Client)
+# Rode de cima para baixo. O backend precisa estar no ar (npm start).
+###############################################
+
+@url = http://localhost:3000/api
+
+### 0. Status da API (não usa banco) — deve voltar {"status":"ok"}
+GET http://localhost:3000/
+
+### 1. Cadastrar um cliente novo
+# (se der "email já existe", pule para o passo 2)
+POST {{url}}/auth/cadastro
+Content-Type: application/json
+
+{
+  "nome": "Aluno Teste",
+  "email": "aluno.teste@email.com",
+  "senha": "senha123",
+  "telefone": "(11) 90000-0000"
+}
+
+### 2. Login como CLIENTE (guarda o token)
+# @name loginCliente
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno.teste@email.com", "senha": "senha123" }
+
+### 3. Login como ADMIN GLOBAL (guarda o token)
+# @name loginAdmin
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{ "email": "diego@email.com", "senha": "admin123" }
+
+### 4. Cliente vê o próprio perfil (pontos e nível)
+GET {{url}}/perfil
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 5. Listar pontos de coleta e tipos (para escolher no descarte)
+GET {{url}}/pontos
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 6. Cliente SOLICITA um descarte (guarda o id da entrega)
+# @name solicitar
+POST {{url}}/entregas
+Authorization: Bearer {{loginCliente.response.body.token}}
+Content-Type: application/json
+
+{ "id_ponto": 1, "id_tipo": 2, "peso_residuo": 5 }
+
+### 7. Cliente vê os próprios descartes (status "solicitado")
+GET {{url}}/perfil/entregas
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 8. Admin lista os descartes pendentes
+GET {{url}}/entregas/pendentes
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### 9. Admin CONFIRMA o descarte (usa o id do passo 6) -> gera pontos
+PUT {{url}}/entregas/{{solicitar.response.body.id_entrega}}/confirmar
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### 10. Cliente confere que agora pontuou
+GET {{url}}/perfil
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 11. Relatórios (só admin)
+GET {{url}}/relatorios/ranking
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+###
+GET {{url}}/relatorios/totais
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+
+###############################################
+# TESTES QUE DEVEM FALHAR (provam a segurança)
+###############################################
+
+### 12. Rota de admin SEM token -> deve dar 401
+GET {{url}}/entregas/pendentes
+
+### 13. CLIENTE tentando confirmar -> deve dar 403 (não é admin)
+PUT {{url}}/entregas/{{solicitar.response.body.id_entrega}}/confirmar
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### 14. Confirmar o MESMO descarte de novo -> deve dar 409 (já confirmado)
+PUT {{url}}/entregas/{{solicitar.response.body.id_entrega}}/confirmar
+Authorization: Bearer {{loginAdmin.response.body.token}}

@@ -1,0 +1,27 @@
+### E-CYCLE — AUTENTICACAO (cadastro e login)
+@url = http://localhost:3000/api
+
+### Cadastrar cliente (cria como 'comum')
+POST {{url}}/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Novo Cliente",
+  "email": "novocliente@email.com",
+  "senha": "cliente123",
+  "telefone": "(11) 97777-0000"
+}
+
+### Login (guarda o token da resposta na variavel "login")
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "diego@email.com",
+  "senha": "admin123"
+}
+
+### Usar o token: ver o proprio perfil
+GET {{url}}/perfil
+Authorization: Bearer {{login.response.body.token}}

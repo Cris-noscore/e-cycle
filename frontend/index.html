@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Cycle — Entrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="tela-login">
+  <div class="login-caixa">
+    <div class="login-marca">
+      <span class="marca-simbolo" aria-hidden="true">&#9850;</span>
+      <h1>E-Cycle</h1>
+      <p class="marca-sub">Reciclagem de eletrônicos</p>
+    </div>
+
+    <!-- Alternar entre Entrar e Cadastrar -->
+    <div class="login-abas">
+      <button class="login-aba ativa" data-form="formLogin">Entrar</button>
+      <button class="login-aba" data-form="formCadastro">Criar conta</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="formLogin" class="login-form">
+      <label>E-mail<input name="email" type="email" required /></label>
+      <label>Senha<input name="senha" type="password" required /></label>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <!-- CADASTRO (sempre cria cliente) -->
+    <form id="formCadastro" class="login-form" hidden>
+      <label>Nome<input name="nome" required /></label>
+      <label>E-mail<input name="email" type="email" required /></label>
+      <label>Senha (mín. 6)<input name="senha" type="password" minlength="6" required /></label>
+      <label>Telefone<input name="telefone" /></label>
+      <button type="submit">Criar conta</button>
+    </form>
+
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

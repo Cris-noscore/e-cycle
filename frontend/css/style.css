@@ -1,0 +1,320 @@
+/* ============================================================
+   E-CYCLE — Estilos
+   Tema: reciclagem de eletronicos (verde profundo + verde-sinal).
+   Variaveis no :root facilitam mudar as cores em um lugar so.
+   ============================================================ */
+:root {
+  --verde-fundo:   #0f766e;  /* teal profundo (marca) */
+  --verde-escuro:  #0b5850;
+  --sinal:         #a3e635;  /* verde-limao (energia/gamificacao) */
+  --texto:         #0f172a;
+  --muted:         #64748b;
+  --fundo:         #eef2f1;
+  --card:          #ffffff;
+  --borda:         #dfe6e4;
+  --perigo:        #dc2626;
+  --raio:          14px;
+  --sombra:        0 1px 3px rgba(15, 23, 42, .08), 0 8px 24px rgba(15, 23, 42, .04);
+}
+
+* { box-sizing: border-box; }
+
+/* Faz o atributo hidden esconder de verdade, mesmo em elementos com display:flex */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  line-height: 1.5;
+}
+
+/* ---------- Cabecalho ---------- */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 28px;
+  background: linear-gradient(120deg, var(--verde-fundo), var(--verde-escuro));
+  color: #fff;
+}
+.marca { display: flex; align-items: center; gap: 14px; }
+.marca-simbolo {
+  font-size: 34px;
+  line-height: 1;
+  color: var(--sinal);
+  filter: drop-shadow(0 0 8px rgba(163, 230, 53, .5));
+}
+.marca h1 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px;
+  letter-spacing: -.5px;
+}
+.marca-sub { margin: 0; font-size: 13px; opacity: .85; }
+.status-api {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .15);
+}
+.status-api.ok  { background: rgba(163, 230, 53, .25); }
+.status-api.erro { background: rgba(220, 38, 38, .35); }
+
+/* ---------- Abas ---------- */
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 28px;
+  background: var(--verde-escuro);
+}
+.aba {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, .7);
+  font: inherit;
+  font-weight: 600;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+.aba:hover { color: #fff; }
+.aba.ativa {
+  color: #fff;
+  border-bottom-color: var(--sinal);
+}
+
+/* ---------- Secoes ---------- */
+main { max-width: 1080px; margin: 0 auto; padding: 28px; }
+.secao { display: none; animation: aparece .2s ease; }
+.secao.ativa { display: block; }
+@keyframes aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  margin: 0 0 18px;
+}
+h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin: 0 0 12px; }
+
+/* ---------- Formularios ---------- */
+.formulario {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 20px;
+  margin-bottom: 22px;
+  box-shadow: var(--sombra);
+}
+.linha { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; }
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  flex: 1;
+  min-width: 160px;
+}
+input, select {
+  font: inherit;
+  color: var(--texto);
+  padding: 9px 11px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  background: #fff;
+}
+input:focus, select:focus {
+  outline: 2px solid var(--verde-fundo);
+  outline-offset: 1px;
+  border-color: var(--verde-fundo);
+}
+button[type="submit"] {
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--verde-fundo);
+  border: none;
+  border-radius: 10px;
+  padding: 11px 22px;
+  cursor: pointer;
+}
+button[type="submit"]:hover { background: var(--verde-escuro); }
+
+/* ---------- Tabelas ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+th, td { text-align: left; padding: 11px 14px; font-size: 14px; }
+thead th {
+  background: #f6f8f7;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+tbody tr { border-top: 1px solid var(--borda); }
+tbody tr:hover { background: #f6faf8; }
+.btn-excluir {
+  border: 1px solid var(--borda);
+  background: #fff;
+  color: var(--perigo);
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.btn-excluir:hover { background: #fff5f5; border-color: var(--perigo); }
+
+/* ---------- Cards de totais ---------- */
+.cards-totais { display: flex; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.card-total {
+  flex: 1;
+  min-width: 200px;
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 20px;
+  box-shadow: var(--sombra);
+}
+.card-total .rotulo { display: block; font-size: 13px; color: var(--muted); font-weight: 600; }
+.card-total strong { font-family: 'Space Grotesk', sans-serif; font-size: 34px; }
+.card-total.destaque { background: var(--verde-fundo); color: #fff; border-color: var(--verde-fundo); }
+.card-total.destaque .rotulo { color: rgba(255, 255, 255, .8); }
+
+/* ---------- Grade de relatorios ---------- */
+.grade-relatorios { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grade-relatorios .painel-box:first-child { grid-column: 1 / -1; }
+.painel-box {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 18px;
+  box-shadow: var(--sombra);
+}
+.painel-box table { border: none; box-shadow: none; }
+
+/* ---------- Gamificacao ---------- */
+.resultado-gamificacao { display: flex; gap: 12px; margin: 4px 0 22px; }
+.chip-pontos, .chip-nivel {
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+.chip-pontos { background: var(--sinal); color: #1a2e05; }
+.chip-nivel { background: var(--verde-fundo); color: #fff; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--texto);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+  z-index: 10;
+}
+.toast.erro { background: var(--perigo); }
+.toast.ok { background: var(--verde-fundo); }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 720px) {
+  .grade-relatorios { grid-template-columns: 1fr; }
+  .topo { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
+   Telas de LOGIN e elementos de sessao (adicionados na v2)
+   ============================================================ */
+
+/* Topo: area do usuario logado */
+.topo-usuario { display: flex; align-items: center; gap: 14px; color: #fff; font-size: 14px; }
+.btn-sair {
+  font: inherit; font-weight: 600; color: #fff;
+  background: rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 999px; padding: 7px 16px; cursor: pointer;
+}
+.btn-sair:hover { background: rgba(255, 255, 255, .28); }
+
+.secao-nota { color: var(--muted); font-size: 14px; margin: -8px 0 16px; }
+
+/* Tela de login */
+.tela-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, var(--verde-fundo), var(--verde-escuro) 70%, #06302b);
+  padding: 20px;
+}
+.login-caixa {
+  width: 100%;
+  max-width: 380px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 30px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+}
+.login-marca { text-align: center; margin-bottom: 22px; }
+.login-marca .marca-simbolo { font-size: 44px; }
+.login-marca h1 { font-family: 'Space Grotesk', sans-serif; margin: 6px 0 0; font-size: 30px; color: var(--texto); }
+.login-marca .marca-sub { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+.login-abas { display: flex; gap: 6px; margin-bottom: 18px; background: #f1f5f4; padding: 4px; border-radius: 12px; }
+.login-aba {
+  flex: 1; border: none; background: transparent; font: inherit; font-weight: 600;
+  color: var(--muted); padding: 9px; border-radius: 9px; cursor: pointer;
+}
+.login-aba.ativa { background: #fff; color: var(--verde-fundo); box-shadow: var(--sombra); }
+
+.login-form { display: flex; flex-direction: column; gap: 14px; }
+.login-form label { color: var(--texto); font-size: 13px; }
+.login-form button {
+  margin-top: 4px; font: inherit; font-weight: 700; color: #fff;
+  background: var(--verde-fundo); border: none; border-radius: 10px; padding: 12px; cursor: pointer;
+}
+.login-form button:hover { background: var(--verde-escuro); }
+
+.login-dica { margin-top: 18px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.6; }
+
+/* ============================================================
+   Fluxo de descarte (v3): status, pendentes, endereco
+   ============================================================ */
+.endereco-ponto { margin: 4px 0 16px; color: var(--muted); font-size: 14px; }
+
+.aviso-solicitacao {
+  background: #ecfccb; border: 1px solid #bef264; color: #3f6212;
+  border-radius: var(--raio); padding: 14px 16px; margin-bottom: 22px; font-size: 14px;
+}
+
+/* Selos de status */
+.status { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.st-aguardando { background: #fef9c3; color: #854d0e; }
+.st-confirmado { background: #dcfce7; color: #166534; }
+.st-recusado   { background: #fee2e2; color: #991b1b; }
+
+/* Botao confirmar (pendentes) */
+.btn-confirmar {
+  border: none; background: var(--verde-fundo); color: #fff;
+  border-radius: 8px; padding: 5px 12px; cursor: pointer; font-size: 13px; font-weight: 600; margin-right: 4px;
+}
+.btn-confirmar:hover { background: var(--verde-escuro); }
+
+/* Badge numerica na aba de pendentes */
+.badge-num {
+  background: var(--sinal); color: #1a2e05; font-size: 11px; font-weight: 700;
+  border-radius: 999px; padding: 1px 7px; margin-left: 4px;
+}

@@ -1,0 +1,16 @@
+# Dependencias do Node (cada um roda "npm install")
+node_modules/
+
+# Variaveis de ambiente com segredos (NUNCA versionar)
+.env
+backend/.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Arquivos do sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json

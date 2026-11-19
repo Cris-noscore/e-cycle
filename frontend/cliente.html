@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Cycle — Cliente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">
+      <span class="marca-simbolo" aria-hidden="true">&#9850;</span>
+      <div><h1>E-Cycle</h1><p class="marca-sub">Área do cliente</p></div>
+    </div>
+    <div class="topo-usuario">
+      <span id="ola"></span>
+      <button class="btn-sair" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="cards-totais">
+      <div class="card-total destaque"><span class="rotulo">Meus pontos</span><strong id="meusPontos">—</strong></div>
+      <div class="card-total"><span class="rotulo">Meu nível</span><strong id="meuNivel">—</strong></div>
+    </div>
+
+    <h2>Solicitar descarte</h2>
+    <form class="formulario" id="formDescarte">
+      <div class="linha">
+        <label>Ponto de coleta<select name="id_ponto" id="selPonto" required></select></label>
+        <label>Tipo de resíduo<select name="id_tipo" id="selTipo" required></select></label>
+        <label>Peso (kg)<input name="peso_residuo" type="number" step="0.01" min="0.01" required /></label>
+      </div>
+      <p class="endereco-ponto" id="enderecoPonto"></p>
+      <button type="submit">Solicitar descarte</button>
+    </form>
+
+    <div class="aviso-solicitacao" id="avisoSolicitacao" hidden>
+      Solicitação enviada! Leve o material ao ponto de coleta. Você recebe os pontos quando o responsável confirmar o recebimento.
+    </div>
+
+    <h3>Meus descartes</h3>
+    <table id="tabMinhas"><thead><tr><th>Data</th><th>Local</th><th>Tipo</th><th>Kg</th><th>Status</th></tr></thead><tbody></tbody></table>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="js/api.js"></script>
+  <script src="js/cliente.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Cycle — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">
+      <span class="marca-simbolo" aria-hidden="true">&#9850;</span>
+      <div><h1>E-Cycle</h1><p class="marca-sub" id="subAdmin">Painel administrativo</p></div>
+    </div>
+    <div class="topo-usuario">
+      <span id="ola"></span>
+      <button class="btn-sair" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <nav class="abas" id="abas">
+    <button class="aba ativa" data-alvo="pendentes">Solicitações pendentes <span class="badge-num" id="badgePend" hidden></span></button>
+    <button class="aba aba-global" data-alvo="painel">Painel</button>
+    <button class="aba aba-global" data-alvo="usuarios">Usuários</button>
+    <button class="aba aba-global" data-alvo="empresas">Empresas</button>
+    <button class="aba aba-global" data-alvo="tipos">Tipos de resíduo</button>
+    <button class="aba aba-global" data-alvo="pontos">Pontos de coleta</button>
+    <button class="aba" data-alvo="entregas">Histórico</button>
+  </nav>
+
+  <main>
+    <!-- PENDENTES -->
+    <section id="pendentes" class="secao ativa">
+      <h2>Solicitações de descarte pendentes</h2>
+      <p class="secao-nota" id="notaPend"></p>
+      <table id="tabPendentes"><thead><tr><th>Data</th><th>Cliente</th><th>Ponto</th><th>Tipo</th><th>Kg</th><th>Ações</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- PAINEL (relatorios) -->
+    <section id="painel" class="secao">
+      <h2>Painel de relatórios</h2>
+      <div class="cards-totais">
+        <div class="card-total"><span class="rotulo">Entregas confirmadas</span><strong id="totalEntregas">—</strong></div>
+        <div class="card-total destaque"><span class="rotulo">Resíduo coletado (kg)</span><strong id="totalPeso">—</strong></div>
+      </div>
+      <div class="grade-relatorios">
+        <div class="painel-box"><h3>Quem mais recicla</h3>
+          <table id="tabRanking"><thead><tr><th>#</th><th>Usuário</th><th>Pontos</th><th>Nível</th><th>Kg</th></tr></thead><tbody></tbody></table></div>
+        <div class="painel-box"><h3>Pontos mais utilizados</h3>
+          <table id="tabPontosRel"><thead><tr><th>Local</th><th>Cidade</th><th>Entregas</th><th>Kg</th></tr></thead><tbody></tbody></table></div>
+        <div class="painel-box"><h3>Tipos mais descartados</h3>
+          <table id="tabTiposRel"><thead><tr><th>Tipo</th><th>Entregas</th><th>Kg</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- USUARIOS -->
+    <section id="usuarios" class="secao">
+      <h2>Usuários</h2>
+      <form class="formulario" id="formUsuario">
+        <div class="linha">
+          <label>Nome<input name="nome" required /></label>
+          <label>E-mail<input name="email" type="email" required /></label>
+        </div>
+        <div class="linha">
+          <label>Senha<input name="senha" type="password" minlength="6" required /></label>
+          <label>Telefone<input name="telefone" /></label>
+          <label>Tipo<select name="tipo_usuario"><option value="comum">comum</option><option value="admin">admin</option></select></label>
+        </div>
+        <button type="submit">Cadastrar usuário</button>
+      </form>
+      <table id="tabUsuarios"><thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Tipo</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- EMPRESAS -->
+    <section id="empresas" class="secao">
+      <h2>Empresas recicladoras</h2>
+      <form class="formulario" id="formEmpresa">
+        <div class="linha">
+          <label>Nome da empresa<input name="nome_empresa" required /></label>
+          <label>CNPJ<input name="cnpj" required /></label>
+          <label>Contato<input name="contato" /></label>
+        </div>
+        <button type="submit">Cadastrar empresa</button>
+      </form>
+      <table id="tabEmpresas"><thead><tr><th>ID</th><th>Empresa</th><th>CNPJ</th><th>Contato</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- TIPOS -->
+    <section id="tipos" class="secao">
+      <h2>Tipos de resíduo</h2>
+      <form class="formulario" id="formTipo">
+        <div class="linha">
+          <label>Nome<input name="nome" required /></label>
+          <label>Descrição<input name="descricao" /></label>
+        </div>
+        <button type="submit">Cadastrar tipo</button>
+      </form>
+      <table id="tabTipos"><thead><tr><th>ID</th><th>Nome</th><th>Descrição</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- PONTOS -->
+    <section id="pontos" class="secao">
+      <h2>Pontos de coleta</h2>
+      <form class="formulario" id="formPonto">
+        <div class="linha">
+          <label>Nome do local<input name="nome_local" required /></label>
+          <label>Endereço<input name="endereco" required /></label>
+        </div>
+        <div class="linha">
+          <label>Cidade<input name="cidade" required /></label>
+          <label>Empresa<select name="id_empresa" id="selEmpresaPonto" required></select></label>
+        </div>
+        <button type="submit">Cadastrar ponto</button>
+      </form>
+      <table id="tabPontos"><thead><tr><th>ID</th><th>Local</th><th>Cidade</th><th>Empresa</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <!-- HISTORICO -->
+    <section id="entregas" class="secao">
+      <h2>Histórico de descartes</h2>
+      <table id="tabEntregas"><thead><tr><th>Data</th><th>Cliente</th><th>Ponto</th><th>Tipo</th><th>Kg</th><th>Status</th></tr></thead><tbody></tbody></table>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
