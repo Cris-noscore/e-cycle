@@ -2,7 +2,7 @@
 
 Plataforma de reciclagem de eletrônicos — projeto de referência do **Projeto Multidisciplinar** (3º A DS, E.E. José Domingos da Silveira).
 
-> **Primeira vez?** Siga o passo a passo completo, com prints do que deve aparecer e solução de erros comuns: [docs/COMO_RODAR.md](docs/COMO_RODAR.md)
+> **Primeira vez?** Siga o passo a passo completo (clonar, criar o banco no Supabase, rodar a API e o site) e a tabela de erros comuns: [docs/COMO_RODAR.md](docs/COMO_RODAR.md)
 
 Três camadas:
 
