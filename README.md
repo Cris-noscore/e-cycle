@@ -2,6 +2,8 @@
 
 Plataforma de reciclagem de eletrônicos — projeto de referência do **Projeto Multidisciplinar** (3º A DS, E.E. José Domingos da Silveira).
 
+> **Primeira vez?** Siga o passo a passo completo, com prints do que deve aparecer e solução de erros comuns: [docs/COMO_RODAR.md](docs/COMO_RODAR.md)
+
 Três camadas:
 
 - **Frontend** — HTML, CSS e JavaScript (sem framework), consome a API.
